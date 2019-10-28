@@ -1,0 +1,24 @@
+@font-face {
+  font-family: 'Muli';
+  font-style: bold;
+  font-weight: 700;
+  src: local('Muli'), local('Muli'), url(../Fonts/Muli-Bold.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Muli';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Muli'), local('Muli'), url(../Fonts/Muli-Regular.ttf) format('truetype');
+}
+
+:root {
+
+}
+
+body {
+	margin:0;
+
+	font-family: 'Muli', sans-serif;
+}
+
