@@ -53,7 +53,7 @@ main {
   width: 40px;
   line-height: 36px;
   position: absolute;
-  margin-left: -40px;
+  margin-left: 208px;
   text-align: center;
 }
 .inputWithIconOnTheRight{
@@ -80,7 +80,7 @@ button {
 .calendar {
   margin-top: 4px;
   height: 298px;
-  width: 248px;
+  width: 250px;
   display:flex;
 }
 .columnCalendar{
@@ -127,7 +127,6 @@ button {
   line-height: 23px;
   margin-bottom:2px;
   width: 36px;
-  cursor: pointer;
 }
 
 
