@@ -65,6 +65,16 @@ main {
 
 
 
+button {
+	background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+  cursor: pointer;
+  outline: inherit;
+}
+
 
 /* calendar */
 .calendar {
@@ -92,7 +102,7 @@ main {
   border: solid 1px #E6B40B;
 }
 .yearThousands{
-  width: 96px;
+  width: 97.3px;
   position: absolute; 
   line-height: 36px;
   transform-origin: 0 0;
@@ -101,22 +111,23 @@ main {
   margin-bottom: -36px;
 } 
 .tenRow{
-  height: 26px;
+  height: 28px;
   width: 36px;
   margin-bottom:2px;
-  line-height: 26px;
+  line-height: 28px;
 }
 .fourRow{
-  height: 71px;
+  height: 73px;
   width: 36px;
   margin-bottom:2px;
-  line-height: 71px;
+  line-height: 73px;
 }
 .monthRow{
-  height: 21px;
-  line-height: 21px;
+  height: 23px;
+  line-height: 23px;
   margin-bottom:2px;
   width: 36px;
+  cursor: pointer;
 }
 
 
