@@ -86,12 +86,12 @@ main {
   display: block;
   height: 100px;
 }
-.yearThousend, .tenRow,
+.yearThousands, .tenRow,
 .fourRow, .monthRow{
   text-align: center;
   border: solid 1px #E6B40B;
 }
-.yearThousend{
+.yearThousands{
   width: 96px;
   position: absolute; 
   line-height: 36px;
