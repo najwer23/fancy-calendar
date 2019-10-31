@@ -1,6 +1,7 @@
 window.onload = function () {
 
-    let Calendarfield = ["yearThousands", "yearTens", "yearUnits", "monthRow", "fourRow", "dayUnits"]
+    let Months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Nov", "Oct", "Dec"];
+    let CalendarField = ["yearThousands", "yearTens", "yearUnits", "monthRow", "fourRow", "dayUnits"]
     let CalendarId = ["birthdayCalendar"];
 
     init ();
@@ -27,8 +28,8 @@ window.onload = function () {
     }
 
     function calendarButtonClick (calendarId) {
-        for (let i = 0; i < Calendarfield.length; i++) {
-            document.querySelectorAll("#" + calendarId + " ." + Calendarfield[i]).forEach(object => {
+        for (let i = 0; i < CalendarField.length; i++) {
+            document.querySelectorAll("#" + calendarId + " ." + CalendarField[i]).forEach(object => {
                 object.addEventListener('click', function () {
                     rebuildInputValForCalendarAfterButtonClick(object, calendarId)
                 })
@@ -37,18 +38,72 @@ window.onload = function () {
     }
    
     function rebuildInputValForCalendarAfterButtonClick(object, calendarId){
-        let val = object.textContent;
-        console.log(object.className+" "+val)
-
-        let valNow = document.getElementById(calendarId+'Input').value;
-        document.getElementById(calendarId + 'Input').value = valNow+val;
-
-        //TODO set new date in input
-
-        //TODO remove old pick
         
-        //TODO set date at calendar, add class
+        let valNow = document.getElementById(calendarId + 'Input').value;
+        let partDateInInput = object.textContent;
+        
+        let valYearThousands = valNow.substring(0, 2);
+        let valYearTens = valNow.substring(2, 3);
+        let valYearUnits = valNow.substring(3, 4);
+        let valMonthRow = valNow.substring(5, 7);
+        let valFourRow = valNow.substring(8, 9);
+        let valDayUnits = valNow.substring(9, 10);
+
+        let toggleClassName = "clickedButtonCalendar";
+
+        for(let i=0; i<CalendarField.length; i++) {
+            if (object.className.indexOf(CalendarField[i]) !== -1) {
+                if (CalendarField[i] === "yearThousands") {
+                    removeClasses(calendarId, CalendarField[i], toggleClassName);
+                    valYearThousands = partDateInInput.substring(0, 2);
+                    object.classList.add(toggleClassName);
+                    break;
+                }
+                if (CalendarField[i] === "yearTens") {
+                    removeClasses(calendarId, CalendarField[i], toggleClassName);
+                    valYearTens = partDateInInput.substring(0, 1);
+                    object.classList.add(toggleClassName);
+                    break;
+                }
+                if (CalendarField[i] === "yearUnits") {
+                    removeClasses(calendarId, CalendarField[i], toggleClassName);
+                    valYearUnits = partDateInInput;
+                    object.classList.add(toggleClassName);
+                    break;
+                }
+                if (CalendarField[i] === "monthRow") {
+                    removeClasses(calendarId, CalendarField[i], toggleClassName);
+                    for (let j=0; j<Months.length; j++) {
+                        if (partDateInInput === Months[j] ) {
+                            valMonthRow = (j > 9) ? (j + 1) : ("0" + (j + 1));
+                        }
+                    }
+                    object.classList.add(toggleClassName);
+                    break;
+                }
+                if (CalendarField[i] === "fourRow") {
+                    removeClasses(calendarId, CalendarField[i], toggleClassName);
+                    valFourRow = partDateInInput;
+                    object.classList.add(toggleClassName);
+                    break;
+                }
+                if (CalendarField[i] === "dayUnits") {
+                    removeClasses(calendarId, CalendarField[i], toggleClassName);
+                    valDayUnits = partDateInInput;
+                    object.classList.add(toggleClassName);
+                    break;
+                }
+            }
+        }
+        
+        document.getElementById(calendarId + 'Input').value = valYearThousands + valYearTens + valYearUnits + "-" + valMonthRow + "-" + valFourRow + valDayUnits;
     }
 
+    function removeClasses(calendarId, className, removedClassName) {
+        document.querySelectorAll("#" + calendarId + " ." + className).forEach(e => {
+            e.classList.remove(removedClassName);
+        });
+    }
+    
     //TODO validation DATE
 }
