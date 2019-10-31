@@ -1,6 +1,6 @@
 window.onload = function () {
 
-    let Calendarfield = [".yearThousands", ".yearTens", ".yearUnits", ".monthRow", ".fourRow", ".dayUnits"]
+    let Calendarfield = ["yearThousands", "yearTens", "yearUnits", "monthRow", "fourRow", "dayUnits"]
     let CalendarId = ["birthdayCalendar"];
 
     init ();
@@ -20,7 +20,7 @@ window.onload = function () {
         let monthToday = (testMonth > 8) ? (testMonth + 1) : ("0" + (testMonth+1));
         let yearToday = todayDate.getFullYear();
 
-        let date = dayToday + "-" + monthToday + "-" + yearToday;
+        let date = yearToday + "-" + monthToday + "-" + dayToday;
         document.getElementById(calendarId + 'Input').value = date;
     
         //TODO set date at calendar
@@ -28,7 +28,7 @@ window.onload = function () {
 
     function calendarButtonClick (calendarId) {
         for (let i = 0; i < Calendarfield.length; i++) {
-            document.querySelectorAll("#" + calendarId + " " + Calendarfield[i]).forEach(object => {
+            document.querySelectorAll("#" + calendarId + " ." + Calendarfield[i]).forEach(object => {
                 object.addEventListener('click', function () {
                     rebuildInputValForCalendarAfterButtonClick(object, calendarId)
                 })
