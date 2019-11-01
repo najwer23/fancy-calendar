@@ -116,13 +116,21 @@ window.onload = function () {
             this.month = valMonthRow;
             this.day = valFourRow + valDayUnits
 
-            //funkcja valid rozszerzona o gorna grancie
-            if (this.day != "00") {
+            if (checkIfDateIsCorrect(this.year, this.month, this.day)) {
                 this.removeClasses(tempFieldCalendarClassName, "clickedButtonCalendar");
                 object.classList.add("clickedButtonCalendar");
                 document.getElementById(this.calendarId + 'Input').value = this.getDateForInput();
             }
                
+        }
+
+        checkIfDateIsCorrect(year, month, day) {
+            let monthLength = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+            if (year % 400 == 0 || (year % 100 != 0 && year % 4 == 0))
+                monthLength[1] = 29;
+
+            return day > 0 && day <= monthLength[month - 1];
         }
 
     }
@@ -142,7 +150,6 @@ window.onload = function () {
         
         for (let i = 0; i < myCalendars.length; i++) {
             document.getElementById(myCalendars[i].calendarId + 'Input').value = birthdayCalendar.getDateForInput();
-            //TODO podswietlany buttony na start
             myCalendars[i].colorForButtonsOnLoad();
             myCalendars[i].calendarButtonClick();
         }
