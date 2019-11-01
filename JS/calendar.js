@@ -38,7 +38,11 @@ window.onload = function () {
         }
 
         getDateForInput() {
-            return this.year + "-" + this.month + "-" + this.day;
+            let date = new Date(this.year + "-" + this.month + "-" + this.day);
+            let weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+            let nameDay = (Number.isNaN(date.getDay())) ? "Uups!" : weekday[date.getDay()];
+            
+            return this.year + "-" + this.month + "-" + this.day + ", " + nameDay;
         }
 
         calendarButtonClick() {
