@@ -1,8 +1,8 @@
 window.onload = function () {
 
     class Calendar {
-        constructor(calendarId, date) {
-            this.calendarId = calendarId
+        constructor(nameCalendarId, date) {
+            this.nameCalendarId = nameCalendarId
             let testDay = date.getDate();
             this.day = (testDay > 9) ? testDay : ("0" + testDay);
             let testMonth = date.getMonth();
@@ -42,8 +42,9 @@ window.onload = function () {
         }
 
         calendarButtonClick() {
+
             for (let key of this.fieldCalendarMap.keys()) {
-                document.querySelectorAll("#" + this.calendarId + " ." + key).forEach(object => {
+                document.querySelectorAll("#" + this.nameCalendarId + " ." + key).forEach(object => {
                     object.addEventListener('click', function () {
                         this.rebuildInputValForCalendarAfterButtonClick(object)
                     }.bind(this))
@@ -52,14 +53,14 @@ window.onload = function () {
         }
 
         removeClasses(className, removedClassName) {
-            document.querySelectorAll("#" + this.calendarId + " ." + className).forEach(e => {
+            document.querySelectorAll("#" + this.nameCalendarId + " ." + className).forEach(e => {
                 e.classList.remove(removedClassName);
             });
         }
 
         colorForButtonsOnLoad() {
             for (let [key, value] of this.fieldCalendarMap) {
-                document.querySelectorAll("#" + this.calendarId + " ." + key).forEach((object, index) => {
+                document.querySelectorAll("#" + this.nameCalendarId + " ." + key).forEach((object, index) => {
                     if (value == object.textContent) {
                         object.classList.add("clickedButtonCalendar");
                     }
@@ -68,7 +69,7 @@ window.onload = function () {
         }
 
         rebuildInputValForCalendarAfterButtonClick(object) {
-            let valNow = document.getElementById(this.calendarId + 'Input').value;
+            let valNow = document.getElementById(this.nameCalendarId + 'Input').value;
 
             let valYearThousands = valNow.substring(0, 2);
             let valYearTens = valNow.substring(2, 3);
@@ -119,9 +120,11 @@ window.onload = function () {
             if (this.checkIfDateIsCorrect(this.year, this.month, this.day)) {
                 this.removeClasses(tempFieldCalendarClassName, "clickedButtonCalendar");
                 object.classList.add("clickedButtonCalendar");
-                document.getElementById(this.calendarId + 'Input').value = this.getDateForInput();
+                document.getElementById(this.nameCalendarId + 'Input').value = this.getDateForInput();
+                console.log("super")
+            } else {
+                console.log("blad")
             }
-               
         }
 
         checkIfDateIsCorrect(year, month, day) {
@@ -145,26 +148,37 @@ window.onload = function () {
         let myCalendars = [];
         
         const birthdayCalendar = new Calendar("birthdayCalendar", dateNow);
-        
         myCalendars.push(birthdayCalendar);
+
+        let element = '';
         
         for (let i = 0; i < myCalendars.length; i++) {
-            document.querySelector("#" + myCalendars[i].calendarId + 'Input').value = birthdayCalendar.getDateForInput();
+            document.querySelector("#" +  myCalendars[i].nameCalendarId + 'Input').value = myCalendars[i].getDateForInput();
             
-            document.querySelectorAll("#" + myCalendars[i].calendarId + ' .' + myCalendars[i].calendarId + "Click").forEach(object => {
+            document.querySelectorAll("#" +  myCalendars[i].nameCalendarId + ' .' +  myCalendars[i].nameCalendarId + "Click").forEach(object => {
                 object.addEventListener('click', function () {
-                    calendarInputClick(myCalendars[i].calendarId);
+                    calendarInputClick( myCalendars[i].nameCalendarId);
                 }.bind())
             });
 
             myCalendars[i].colorForButtonsOnLoad();
             myCalendars[i].calendarButtonClick();
+             
+            document.addEventListener('click', function (e) {
+                if (!document.getElementById(myCalendars[i].nameCalendarId).contains(e.target)) {
+                    element = document.querySelector("." +  myCalendars[i].nameCalendarId + "List");
+                    element.classList.remove('calendarActive');
+                }
+            });
+            
         }
+       
     }
 
-    function calendarInputClick(nameCalendar) {
+    function calendarInputClick(nameCalendar) { 
         const calendar = document.querySelector("."+nameCalendar+"List");
         calendar.classList.toggle('calendarActive');
     }
+
 
 }

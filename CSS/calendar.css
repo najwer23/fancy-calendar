@@ -24,7 +24,7 @@ body {
 
 
 main {
-  padding-top: 100px;
+  padding-top: 50px;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -80,7 +80,7 @@ button {
 /* calendar */
 .calendar {
   margin-top: 4px;
-  height: 298px;
+  height: 0px;
   width: 250px;
   display:flex;
   visibility: hidden;
@@ -143,4 +143,5 @@ button {
 
 .calendarActive {
   visibility: visible;
+  height: 298px;
 }
