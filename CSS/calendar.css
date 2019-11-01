@@ -61,6 +61,7 @@ main {
   height: 30px;
   padding-left: 5px;
   padding-right: 40px;
+  cursor: pointer;
 }
 
 
@@ -82,6 +83,7 @@ button {
   height: 298px;
   width: 250px;
   display:flex;
+  visibility: hidden;
 }
 .columnCalendar{
   width: 100%;
@@ -137,4 +139,8 @@ button {
 .clickedButtonCalendar {
   background: #E6B40B;
   color: white
+}
+
+.calendarActive {
+  visibility: visible;
 }

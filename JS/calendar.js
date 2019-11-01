@@ -116,7 +116,7 @@ window.onload = function () {
             this.month = valMonthRow;
             this.day = valFourRow + valDayUnits
 
-            if (checkIfDateIsCorrect(this.year, this.month, this.day)) {
+            if (this.checkIfDateIsCorrect(this.year, this.month, this.day)) {
                 this.removeClasses(tempFieldCalendarClassName, "clickedButtonCalendar");
                 object.classList.add("clickedButtonCalendar");
                 document.getElementById(this.calendarId + 'Input').value = this.getDateForInput();
@@ -145,14 +145,26 @@ window.onload = function () {
         let myCalendars = [];
         
         const birthdayCalendar = new Calendar("birthdayCalendar", dateNow);
-
+        
         myCalendars.push(birthdayCalendar);
         
         for (let i = 0; i < myCalendars.length; i++) {
-            document.getElementById(myCalendars[i].calendarId + 'Input').value = birthdayCalendar.getDateForInput();
+            document.querySelector("#" + myCalendars[i].calendarId + 'Input').value = birthdayCalendar.getDateForInput();
+            
+            document.querySelectorAll("#" + myCalendars[i].calendarId + ' .' + myCalendars[i].calendarId + "Click").forEach(object => {
+                object.addEventListener('click', function () {
+                    calendarInputClick(myCalendars[i].calendarId);
+                }.bind())
+            });
+
             myCalendars[i].colorForButtonsOnLoad();
             myCalendars[i].calendarButtonClick();
         }
+    }
+
+    function calendarInputClick(nameCalendar) {
+        const calendar = document.querySelector("."+nameCalendar+"List");
+        calendar.classList.toggle('calendarActive');
     }
 
 }
