@@ -25,7 +25,7 @@ window.onload = function () {
             ];
             this.monthsMap = new Map(this.months);
 
-            this.fieldCalendar = [
+            this.fieldsCalendar = [
                 ["yearThousands", this.year.toString().substring(0, 2) + "00"],
                 ["yearTens", this.year.toString().substring(2, 3) + "0"],
                 ["yearUnits", this.year.toString().substring(3, 4)],
@@ -33,7 +33,7 @@ window.onload = function () {
                 ["fourRow", this.day.toString().substring(0, 1)],
                 ["dayUnits", this.day.toString().substring(1, 2)]
             ];
-            this.fieldCalendarMap = new Map(this.fieldCalendar);
+            this.fieldsCalendarMap = new Map(this.fieldsCalendar);
 
         }
 
@@ -43,7 +43,7 @@ window.onload = function () {
 
         calendarButtonClick() {
 
-            for (let key of this.fieldCalendarMap.keys()) {
+            for (let key of this.fieldsCalendarMap.keys()) {
                 document.querySelectorAll("#" + this.nameCalendarId + " ." + key).forEach(object => {
                     object.addEventListener('click', function () {
                         this.rebuildInputValForCalendarAfterButtonClick(object)
@@ -52,14 +52,14 @@ window.onload = function () {
             }
         }
 
-        removeClasses(className, removedClassName) {
+        removeClasses(className, removeClassName) {
             document.querySelectorAll("#" + this.nameCalendarId + " ." + className).forEach(e => {
-                e.classList.remove(removedClassName);
+                e.classList.remove(removeClassName);
             });
         }
 
         colorForButtonsOnLoad() {
-            for (let [key, value] of this.fieldCalendarMap) {
+            for (let [key, value] of this.fieldsCalendarMap) {
                 document.querySelectorAll("#" + this.nameCalendarId + " ." + key).forEach((object, index) => {
                     if (value == object.textContent) {
                         object.classList.add("clickedButtonCalendar");
@@ -79,7 +79,7 @@ window.onload = function () {
             let valDayUnits = valNow.substring(9, 10);
 
             let tempFieldCalendarClassName = "";
-            for (let key of this.fieldCalendarMap.keys()) {
+            for (let key of this.fieldsCalendarMap.keys()) {
                 tempFieldCalendarClassName = key;
                 if (object.className.indexOf(tempFieldCalendarClassName) !== -1) {
                     if (tempFieldCalendarClassName === "yearThousands") {
@@ -117,13 +117,16 @@ window.onload = function () {
             this.month = valMonthRow;
             this.day = valFourRow + valDayUnits
 
+            //let show wrong date too
+            this.removeClasses(tempFieldCalendarClassName, "clickedButtonCalendar");
+            object.classList.add("clickedButtonCalendar");
+            document.getElementById(this.nameCalendarId + 'Input').value = this.getDateForInput();
+
+
             if (this.checkIfDateIsCorrect(this.year, this.month, this.day)) {
-                this.removeClasses(tempFieldCalendarClassName, "clickedButtonCalendar");
-                object.classList.add("clickedButtonCalendar");
-                document.getElementById(this.nameCalendarId + 'Input').value = this.getDateForInput();
-                console.log("super")
+                document.querySelector("#" + this.nameCalendarId + " .inputHelpInfo").innerHTML = "<span style=\"color: green\">Format Date is ok!</span>"
             } else {
-                console.log("blad")
+                document.querySelector("#" + this.nameCalendarId + " .inputHelpInfo").innerHTML = "<span style=\"color: red\">Format Date is wrong!</span>"
             }
         }
 
@@ -155,7 +158,7 @@ window.onload = function () {
         for (let i = 0; i < myCalendars.length; i++) {
             document.querySelector("#" +  myCalendars[i].nameCalendarId + 'Input').value = myCalendars[i].getDateForInput();
             
-            document.querySelectorAll("#" +  myCalendars[i].nameCalendarId + ' .' +  myCalendars[i].nameCalendarId + "Click").forEach(object => {
+            document.querySelectorAll("#" + myCalendars[i].nameCalendarId + " .calendarClick").forEach(object => {
                 object.addEventListener('click', function () {
                     calendarInputClick( myCalendars[i].nameCalendarId);
                 }.bind())
@@ -166,7 +169,7 @@ window.onload = function () {
              
             document.addEventListener('click', function (e) {
                 if (!document.getElementById(myCalendars[i].nameCalendarId).contains(e.target)) {
-                    element = document.querySelector("." +  myCalendars[i].nameCalendarId + "List");
+                    element = document.querySelector("#" + myCalendars[i].nameCalendarId + " .calendarList");
                     element.classList.remove('calendarActive');
                 }
             });
@@ -176,7 +179,7 @@ window.onload = function () {
     }
 
     function calendarInputClick(nameCalendar) { 
-        const calendar = document.querySelector("."+nameCalendar+"List");
+        const calendar = document.querySelector("#" + nameCalendar + " .calendarList");
         calendar.classList.toggle('calendarActive');
     }
 

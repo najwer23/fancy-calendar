@@ -76,6 +76,9 @@ button {
   outline: inherit;
 }
 
+button:focus {
+  background: rgb(255, 197, 5);
+}
 
 /* calendar */
 .calendar {
@@ -144,4 +147,8 @@ button {
 .calendarActive {
   visibility: visible;
   height: 298px;
+}
+
+.wrapperInputWithIcon button {
+  width: 42px;
 }
